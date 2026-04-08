@@ -1,8 +1,8 @@
 import numpy as np
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPen, QFont
-from PyQt5.QtWidgets import QGraphicsItem
-from snuggs import number
+# from PyQt5.QtGui import QPen, QFont
+# from PyQt5.QtWidgets import QGraphicsItem
+# from snuggs import number
 
 from source.tools.Tool import Tool
 from PyQt5.QtCore import pyqtSlot, pyqtSignal
@@ -27,19 +27,16 @@ class SelectPoints(Tool):
         self.image_height = 0
 
         self.CROSS_LINE_WIDTH = 2
-        self.pick_style = {'width': self.CROSS_LINE_WIDTH, 'color': Qt.cyan, 'size': 6}
+        self.pick_style = {"width": self.CROSS_LINE_WIDTH, "color": Qt.cyan, "size": 6}
 
     def reset(self):
-
         self.pick_points.reset()
         self.selected_points = []
 
     def leftPressed(self, x, y, mods):
-
         points = self.pick_points.points
 
         if x >= 0 and y >= 0 and x < self.image_width and self.image_height:
-
             if len(points) < self.N_points:
                 self.pick_points.points.append(np.array([x, y]))
                 self.idx_points += 1
@@ -70,7 +67,6 @@ class SelectPoints(Tool):
 
     @pyqtSlot(int, int)
     def setPoints(self, idx, point):
-
         x = point[0]
         y = point[1]
 
@@ -79,7 +75,6 @@ class SelectPoints(Tool):
             self.drawSelectedPoints()
 
     def drawSelectedPoints(self):
-
         points = self.pick_points.points.copy()
 
         self.pick_points.reset()
@@ -87,9 +82,3 @@ class SelectPoints(Tool):
         # add points and draw them
         for pt in points:
             self.pick_points.addPoint(pt[0], pt[1], self.pick_style)
-
-
-
-
-
-
